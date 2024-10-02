@@ -18,7 +18,7 @@ brew "<formula>"
 ### Example: Installing chiaki-ng
 
 ```
-brew install streetpea/streetpea/chiaki-ng
+brew install --cask streetpea/streetpea/chiaki-ng
 ```
 
 ## Documentation
