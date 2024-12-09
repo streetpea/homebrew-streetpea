@@ -1,11 +1,11 @@
 cask "chiaki-ng" do
   arch arm: "arm64", intel: "amd64"
 
-  version "1.9.1"
-  sha256 arm:   "e3b564d511e2e4e4ab1f38975e79da11323655b20d57ac005b1c20813d53a4d8",
-         intel: "d57a2d4779b7753838d06df254c35d1fd2f1257da8b6d1ae38902a6ec902f15c"
+  version "1.9.2"
+  sha256 arm:   "61b5bfe803e4a6ecd0a2eed99a16313ba809dce80c9a8a342686244077509559",
+         intel: "4088661af6c14cdfa810ae055ff03f00f81fbc414e6880424da85ac8e076a582"
 
-  url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version}/chiaki-ng-macos_#{arch}-Release.zip",
+  url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version}/chiaki-ng-macos_#{arch}-Release.dmg",
       verified: "github.com/streetpea/chiaki-ng/"
   name "chiaki-ng"
   desc "PlayStation remote play client next-generation"
