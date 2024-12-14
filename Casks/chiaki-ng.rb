@@ -1,9 +1,9 @@
 cask "chiaki-ng" do
   arch arm: "arm64", intel: "amd64"
 
-  version "1.9.2"
-  sha256 arm:   "61b5bfe803e4a6ecd0a2eed99a16313ba809dce80c9a8a342686244077509559",
-         intel: "4088661af6c14cdfa810ae055ff03f00f81fbc414e6880424da85ac8e076a582"
+  version "1.9.3"
+  sha256 arm:   "62e16bdda346ca30920972d195c60ae855a1589e09c0ba0e8c61d6d93174b40f",
+         intel: "bfa5d3922d9073ca8430d2f43d9011eb5146c42b9b167363f015565ba2b3698c"
 
   url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version}/chiaki-ng-macos_#{arch}-Release.dmg",
       verified: "github.com/streetpea/chiaki-ng/"
@@ -21,8 +21,4 @@ cask "chiaki-ng" do
     "~/Library/Application Support/Chiaki",
     "~/Library/Preferences/com.chiaki.Chiaki.plist",
   ]
-
-  caveats do
-    requires_rosetta
-  end
 end
