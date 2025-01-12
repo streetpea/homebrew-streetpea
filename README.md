@@ -21,6 +21,17 @@ brew "<formula>"
 brew install --cask streetpea/streetpea/chiaki-ng
 ```
 
+[!NOTE]
+By using chiaki-ng, you acknowledge that it's not [notarized](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution).
+
+Notarization is a "security" feature by Apple.
+You send binaries to Apple, and they either approve them or not.
+In reality, notarization is about building binaries the way Apple likes it.
+
+[Homebrew installation script](https://github.com/streetpea/homebrew-streetpea/blob/main/Casks/chiaki-ng.rb) is configured to
+automatically delete `com.apple.quarantine` attribute, that's why the app should work out of the box, without any warnings that
+"Apple cannot check chiaki-ng for malicious software"
+
 ## Documentation
 
 `brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).

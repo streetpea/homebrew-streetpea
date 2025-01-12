@@ -1,9 +1,9 @@
 cask "chiaki-ng" do
   arch arm: "arm64", intel: "amd64"
 
-  version "1.9.3,0"
-  sha256 arm:   "62e16bdda346ca30920972d195c60ae855a1589e09c0ba0e8c61d6d93174b40f",
-         intel: "e35e3e74235e0077d94ff968729d0c463a9e52c2b8961353f474e2d8530305c8"
+  version "1.9.4,0"
+  sha256 arm:   "5942a0e7ebea70eb8fc80f876014ea4e17db2d9bd9f1d696b12a6bcd47215841",
+         intel: "51b141a71d33e773608abd05d56c81fd96aa4123ab062832f10ba4061242b317"
 
   url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version.csv.first}/chiaki-ng-macos_#{arch}-Release.dmg",
       verified: "github.com/streetpea/chiaki-ng/"
@@ -13,6 +13,10 @@ cask "chiaki-ng" do
 
   livecheck do
     url "https://github.com/streetpea/chiaki-ng/releases"
+  end
+
+  postflight do
+    system "xattr -d com.apple.quarantine #{appdir}/chiaki-ng.app"
   end
 
   app "chiaki-ng.app"
