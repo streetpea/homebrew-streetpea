@@ -13,17 +13,38 @@ class Qt < Formula
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   stable do
-    url "https://download.qt.io/official_releases/qt/6.8/6.8.1/single/qt-everywhere-src-6.8.1.tar.xz"
-    mirror "https://qt.mirror.constant.com/archive/qt/6.8/6.8.1/single/qt-everywhere-src-6.8.1.tar.xz"
-    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.8/6.8.1/single/qt-everywhere-src-6.8.1.tar.xz"
-    sha256 "659d8bb5931afac9ed5d89a78e868e6bd00465a58ab566e2123db02d674be559"
+    url "https://download.qt.io/official_releases/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    sha256 "a3f1d257cbb14c6536585ffccf7c203ce7017418e1a0c2ed7c316c20c729c801"
 
-    # Backport support for pkgconfig files on macOS
+    # Backport fix for Xcode 16. Remove in the next release
     patch do
-      url "https://github.com/qt/qtbase/commit/7a31e402f24ec29c571f825e06bd569477501dfc.patch?full_index=1"
-      sha256 "81b7afb9a5118332545108e94105a0f22023f422d032632043b64ab93fefd06c"
-      directory "qtbase"
+      url "https://github.com/qt/qtwebengine-chromium/commit/8c5cf527c520edf9cd96c143af02ac94966fc2af.patch?full_index=1"
+      sha256 "ab14d8559c0470cc28f6ba279015dac9e7411135f5f58c285c6a7cf5995e61b4"
+      directory "qtwebengine/src/3rdparty"
     end
+
+    # Backport support for FFMpeg 7.
+    # Ref: https://bugreports.qt.io/browse/QTBUG-125227
+    patch do
+      # Use Fedora's backport of https://github.com/qt/qtwebengine-chromium/commit/b30e3535717e1cb970c6e4095b412a2c5fdbce40
+      url "https://src.fedoraproject.org/rpms/qt6-qtwebengine/raw/864539f2140a11fda9bf3ef878a2e627f04f0b2d/f/qtwebengine-fix-building-with-system-ffmpeg.patch"
+      sha256 "70b8c468be1954b8dad59243069c6369d7c6eae332f154d99e3027b9119eb7c5"
+      directory "qtwebengine"
+    end
+    patch do
+      url "https://github.com/qt/qtwebengine-chromium/commit/65aaac35d040aef90c2e9f41a651b5a23470e457.patch?full_index=1"
+      sha256 "2875e9c534da34902fb113b4171d7a4960e6bc27f6ad45d49929ecf667856d48"
+      directory "qtwebengine/src/3rdparty"
+    end
+    patch do
+      url "https://github.com/qt/qtwebengine-chromium/commit/d9944bcb991c981574a229e5267e535b4eac8e1c.patch?full_index=1"
+      sha256 "11d8c7db91e76ea886dd0f30aedb3bfb33211f6ba39236d684ad63bfe80682ff"
+      directory "qtwebengine/src/3rdparty"
+    end
+    # Backport of https://github.com/qt/qtwebengine-chromium/commit/afcbb2eab7c5b0329ad0045782768dd2805d6a05
+    patch :DATA
   end
 
   # The first-party website doesn't make version information readily available,
@@ -33,11 +54,19 @@ class Qt < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    sha256 cellar: :any,                 arm64_sonoma:  "736b15e97ce01368cd314e96c7b46bad0d9b48e4258913511ab5f1b9ef16779b"
+    sha256 cellar: :any,                 arm64_ventura: "295299335e44701169635bb8672f588aa87d9265c539dcc4d7fe31ccd998e050"
+    sha256 cellar: :any,                 sonoma:        "7132f1d6dca9d0e78c6ba629fa798dea394be92d55ad98c3a1829a139904d21e"
+    sha256 cellar: :any,                 ventura:       "5a16728c19d459550d2f369498f431a164569a727475298a53fea542bfaddf77"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50dc2df98af451dc46de70ccd130bf8b3ce2edc9364173af87f3c03870f3e78f"
+  end
+
   depends_on "cmake" => [:build, :test]
   depends_on maximum_macos: [:sonoma, :build] # https://bugreports.qt.io/browse/QTBUG-128900
   depends_on "ninja" => :build
   depends_on "node" => :build
-  depends_on "pkgconf" => [:build, :test]
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => [:build, :test]
   depends_on "vulkan-loader" => [:build, :test]
@@ -130,8 +159,8 @@ class Qt < Formula
   end
 
   resource "six" do
-    url "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz"
-    sha256 "ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "webencodings" do
@@ -142,15 +171,15 @@ class Qt < Formula
   def install
     python3 = "python3.13"
 
-    # Install python dependencies for QtWebEngine
-    venv = virtualenv_create(buildpath/"venv", python3)
-    venv.pip_install resources
-    ENV.prepend_path "PYTHONPATH", venv.site_packages
-
     # Allow -march options to be passed through, as Qt builds
     # arch-specific code with runtime detection of capabilities:
     # https://bugreports.qt.io/browse/QTBUG-113391
     ENV.runtime_cpu_detection
+
+    # Install python dependencies for QtWebEngine
+    venv = virtualenv_create(buildpath/"venv", python3)
+    venv.pip_install resources
+    ENV.prepend_path "PYTHONPATH", venv.site_packages
 
     # FIXME: GN requires clang in clangBasePath/bin
     inreplace "qtwebengine/src/3rdparty/chromium/build/toolchain/apple/toolchain.gni",
@@ -172,26 +201,36 @@ class Qt < Formula
     ]
     inreplace assistant_files, '"Assistant.app/Contents/MacOS/Assistant"', '"Assistant"'
 
+    # Allow generating unofficial pkg-config files for macOS to be used by other formulae.
+    # Upstream currently does not provide them: https://bugreports.qt.io/browse/QTBUG-86080
+    inreplace "qtbase/cmake/QtPkgConfigHelpers.cmake", "(NOT UNIX OR QT_FEATURE_framework)", "(NOT UNIX)"
+
+    config_args = %W[
+      -release
+
+      -prefix #{HOMEBREW_PREFIX}
+      -extprefix #{prefix}
+
+      -archdatadir share/qt
+      -datadir share/qt
+      -examplesdir share/qt/examples
+      -hostdatadir share/qt/mkspecs
+      -testsdir share/qt/tests
+
+      -no-sql-mysql
+      -no-sql-odbc
+      -no-sql-psql
+    ]
+
     # We prefer CMake `-DQT_FEATURE_system*=ON` arg over configure `-system-*` arg
     # since the latter may be ignored when auto-detection fails.
     #
     # We disable clang feature to avoid linkage to `llvm`. This is how we have always
     # built on macOS and it prevents complicating `llvm` version bumps on Linux.
-    cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %W[
-      -DCMAKE_STAGING_PREFIX=#{prefix}
-      -DINSTALL_ARCHDATADIR=share/qt
-      -DINSTALL_DATADIR=share/qt
-      -DINSTALL_EXAMPLESDIR=share/qt/examples
-      -DINSTALL_MKSPECSDIR=share/qt/mkspecs
-      -DINSTALL_TESTSDIR=share/qt/tests
-
-      -DFEATURE_sql_mysql=OFF
-      -DFEATURE_sql_odbc=OFF
-      -DFEATURE_sql_psql=OFF
+    cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %w[
+      -DFEATURE_pkg_config=ON
       -DQT_FEATURE_clang=OFF
       -DQT_FEATURE_relocatable=OFF
-
-      -DFEATURE_pkg_config=ON
       -DQT_FEATURE_system_assimp=ON
       -DQT_FEATURE_system_doubleconversion=ON
       -DQT_FEATURE_system_freetype=ON
@@ -211,18 +250,23 @@ class Qt < Formula
     ]
 
     cmake_args += if OS.mac?
+      config_args << "-sysroot" << MacOS.sdk_path.to_s
       # NOTE: `chromium` should be built with the latest SDK because it uses
       # `___builtin_available` to ensure compatibility.
-      #
-      # Chromium needs Xcode 15.3+ and using LLVM Clang is not supported on macOS
-      # See https://bugreports.qt.io/browse/QTBUG-130922
-      cmake_args << "-DBUILD_qtwebengine=OFF" if MacOS::Xcode.version < "15.3"
+      config_args << "-skip" << "qtwebengine" if DevelopmentTools.clang_build_version <= 1200
 
+      # FIXME: `-DQT_FEATURE_webengine_vulkan=OFF` is a workaround for
+      # error: use of undeclared identifier 'importMemoryHandleInfo'
+      # Remove once properly handled by Qt.
       %W[
         -DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}.0
         -DQT_FEATURE_ffmpeg=OFF
+        -DQT_FEATURE_webengine_vulkan=OFF
       ]
     else
+      # Explicitly specify QT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX so
+      # that cmake does not think $HOMEBREW_PREFIX/lib is the install prefix.
+      #
       # For QtWebEngine arguments:
       # * The vendored copy of `libvpx` is used for VA-API hardware acceleration,
       #   see https://codereview.qt-project.org/c/qt/qtwebengine/+/454908
@@ -231,7 +275,8 @@ class Qt < Formula
       # * On macOS Chromium will always use bundled copies and the
       #   -DQT_FEATURE_webengine_system_*=ON arguments are ignored.
       # * As of Qt 6.6.0, webengine_ozone_x11 feature appears to be mandatory for Linux.
-      %w[
+      %W[
+        -DQT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX=#{prefix}
         -DQT_FEATURE_xcb=ON
         -DQT_FEATURE_system_xcb_xinput=ON
         -DQT_FEATURE_webengine_ozone_x11=ON
@@ -255,9 +300,9 @@ class Qt < Formula
       ]
     end
 
-    system "cmake", "-S", ".", "-B", "build", "-G", "Ninja", *cmake_args
-    system "cmake", "--build", "build"
-    system "cmake", "--install", "build"
+    system "./configure", *config_args, "--", *cmake_args
+    system "cmake", "--build", "."
+    system "cmake", "--install", "."
 
     inreplace lib/"cmake/Qt6/qt.toolchain.cmake", "#{Superenv.shims_path}/", ""
 
@@ -270,7 +315,9 @@ class Qt < Formula
     # own version.
     # If you read this and you can eliminate it or upstream it: please do!
     # More context in https://github.com/Homebrew/homebrew-core/pull/124923
-    (share/"qtcreator/QtProject/qtcreator/qtversion.xml").write <<~XML
+    qtversion_xml = share/"qtcreator/QtProject/qtcreator/qtversion.xml"
+    qtversion_xml.dirname.mkpath
+    qtversion_xml.write <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE QtCreatorQtVersions>
       <qtcreator>
@@ -294,16 +341,33 @@ class Qt < Formula
 
     return unless OS.mac?
 
+    # The pkg-config files installed suggest that headers can be found in the
+    # `include` directory. Make this so by creating symlinks from `include` to
+    # the Frameworks' Headers folders.
+    # Tracking issues:
+    # https://bugreports.qt.io/browse/QTBUG-86080
+    # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/6363
     lib.glob("*.framework") do |f|
       # Some config scripts will only find Qt in a "Frameworks" folder
       frameworks.install_symlink f
-      # Some dependents' test use include path (e.g. `gecode` and `qwt`)
       include.install_symlink f/"Headers" => f.stem
     end
 
     bin.glob("*.app") do |app|
       libexec.install app
       bin.write_exec_script libexec/app.basename/"Contents/MacOS"/app.stem
+    end
+
+    # Modify unofficial pkg-config files to fix up paths and use frameworks.
+    # Also move them to `libexec` as they are not guaranteed to work for users,
+    # i.e. there is no upstream or Homebrew support.
+    lib.glob("pkgconfig/*.pc") do |pc|
+      inreplace pc do |s|
+        s.gsub! " -L${libdir}", " -F${libdir}", audit_result: false
+        s.gsub! " -lQt6", " -framework Qt", audit_result: false
+        s.gsub! " -Ilib/", " -I${libdir}/", audit_result: false
+      end
+      (libexec/"lib/pkgconfig").install pc
     end
   end
 
@@ -317,30 +381,37 @@ class Qt < Formula
   end
 
   test do
-    webengine_supported = !OS.mac? || MacOS.version > :ventura
-    modules = %w[Core Gui Widgets Sql Concurrent 3DCore Svg Quick3D Network NetworkAuth]
-    modules << "WebEngineCore" if webengine_supported
-
     (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION #{Formula["cmake"].version})
+
       project(test VERSION 1.0.0 LANGUAGES CXX)
 
       set(CMAKE_CXX_STANDARD 17)
       set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
       set(CMAKE_AUTOMOC ON)
       set(CMAKE_AUTORCC ON)
       set(CMAKE_AUTOUIC ON)
 
-      find_package(Qt6 REQUIRED COMPONENTS #{modules.join(" ")})
-      add_executable(test main.cpp)
-      target_link_libraries(test PRIVATE Qt6::#{modules.join(" Qt6::")})
+      find_package(Qt6 COMPONENTS Core Gui Widgets Sql Concurrent
+        3DCore Svg Quick3D Network NetworkAuth WebEngineCore REQUIRED)
+
+      add_executable(test
+        main.cpp
+      )
+
+      target_link_libraries(test PRIVATE Qt6::Core Qt6::Widgets
+        Qt6::Sql Qt6::Concurrent Qt6::3DCore Qt6::Svg Qt6::Quick3D
+        Qt6::Network Qt6::NetworkAuth Qt6::Gui Qt6::WebEngineCore
+      )
     CMAKE
 
     (testpath/"test.pro").write <<~EOS
-      QT += #{modules.join(" ").downcase}
+      QT       += core svg 3dcore network networkauth quick3d \
+        sql gui widgets webenginecore
       TARGET = test
-      CONFIG += console
-      CONFIG -= app_bundle
+      CONFIG   += console
+      CONFIG   -= app_bundle
       TEMPLATE = app
       SOURCES += main.cpp
       INCLUDEPATH += #{Formula["vulkan-headers"].opt_include}
@@ -357,7 +428,7 @@ class Qt < Formula
       #include <QtSvg>
       #include <QDebug>
       #include <QVulkanInstance>
-      #{"#include <QtWebEngineCore>" if webengine_supported}
+      #include <QtWebEngineCore>
       #include <iostream>
 
       int main(int argc, char *argv[])
@@ -387,26 +458,107 @@ class Qt < Formula
       }
     CPP
 
-    ENV["LC_ALL"] = "en_US.UTF-8"
     ENV["QT_VULKAN_LIB"] = Formula["vulkan-loader"].opt_lib/shared_library("libvulkan")
     ENV["QT_QPA_PLATFORM"] = "minimal" if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
-    system "cmake", "-S", ".", "-B", "cmake"
-    system "cmake", "--build", "cmake"
-    system "./cmake/test"
-
-    ENV.delete "CPATH" if OS.mac? && MacOS.version > :mojave
-    mkdir "qmake" do
-      system bin/"qmake", testpath/"test.pro"
-      system "make"
-      system "./test"
-    end
-
-    flags = shell_output("pkgconf --cflags --libs Qt6#{modules.join(" Qt6")}").chomp.split
-    system ENV.cxx, "-std=c++17", "main.cpp", "-o", "test", *flags
+    system "cmake", testpath
+    system "make"
     system "./test"
 
-    # Check QT_INSTALL_PREFIX is HOMEBREW_PREFIX to support split `qt-*` formulae
-    assert_equal HOMEBREW_PREFIX.to_s, shell_output("#{bin}/qmake -query QT_INSTALL_PREFIX").chomp
+    ENV.delete "CPATH" if OS.mac? && MacOS.version > :mojave
+    system bin/"qmake", testpath/"test.pro"
+    system "make"
+    system "./test"
   end
 end
+
+__END__
+diff --git a/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.cc b/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.cc
+index aaab17bdc3b9c157981f2708c680eea03657f211..737ba737872ca5df4ee9a5efe03d17573a1f2e49 100644
+--- a/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.cc
++++ b/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.cc
+@@ -142,7 +142,7 @@ bool FFmpegVideoDecoder::IsCodecSupported(VideoCodec codec) {
+ }
+
+ FFmpegVideoDecoder::FFmpegVideoDecoder(MediaLog* media_log)
+-    : media_log_(media_log) {
++    : media_log_(media_log), timestamp_map_(128) {
+   DVLOG(1) << __func__;
+   DETACH_FROM_SEQUENCE(sequence_checker_);
+ }
+@@ -371,8 +371,10 @@ bool FFmpegVideoDecoder::FFmpegDecode(const DecoderBuffer& buffer) {
+     DCHECK(packet->data);
+     DCHECK_GT(packet->size, 0);
+
+-    // Let FFmpeg handle presentation timestamp reordering.
+-    codec_context_->reordered_opaque = buffer.timestamp().InMicroseconds();
++    const int64_t timestamp = buffer.timestamp().InMicroseconds();
++    const TimestampId timestamp_id = timestamp_id_generator_.GenerateNextId();
++    timestamp_map_.Put(std::make_pair(timestamp_id, timestamp));
++    packet->opaque = reinterpret_cast<void*>(timestamp_id.GetUnsafeValue());
+   }
+   FFmpegDecodingLoop::DecodeStatus decode_status = decoding_loop_->DecodePacket(
+       packet, base::BindRepeating(&FFmpegVideoDecoder::OnNewFrame,
+@@ -431,7 +433,12 @@ bool FFmpegVideoDecoder::OnNewFrame(AVFrame* frame) {
+   }
+   gfx::Size natural_size = aspect_ratio.GetNaturalSize(visible_rect);
+
+-  const auto pts = base::Microseconds(frame->reordered_opaque);
++  const auto ts_id = TimestampId(reinterpret_cast<size_t>(frame->opaque));
++  const auto ts_lookup = timestamp_map_.Get(ts_id);
++  if (ts_lookup == timestamp_map_.end()) {
++    return false;
++  }
++  const auto pts = base::Microseconds(std::get<1>(*ts_lookup));
+   auto video_frame = VideoFrame::WrapExternalDataWithLayout(
+       opaque->layout, visible_rect, natural_size, opaque->data, opaque->size,
+       pts);
+@@ -506,8 +513,10 @@ bool FFmpegVideoDecoder::ConfigureDecoder(const VideoDecoderConfig& config,
+   codec_context_->thread_count = GetFFmpegVideoDecoderThreadCount(config);
+   codec_context_->thread_type =
+       FF_THREAD_SLICE | (low_delay ? 0 : FF_THREAD_FRAME);
++
+   codec_context_->opaque = this;
+   codec_context_->get_buffer2 = GetVideoBufferImpl;
++  codec_context_->flags |= AV_CODEC_FLAG_COPY_OPAQUE;
+
+   if (decode_nalus_)
+     codec_context_->flags2 |= AV_CODEC_FLAG2_CHUNKS;
+diff --git a/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.h b/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.h
+index d02cb89c3ddf7cee0d1a79ee095eae5f52ff5111..0a2de1c623ffff7dc9c5d381344714e9ee3d2f2a 100644
+--- a/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.h
++++ b/qtwebengine/src/3rdparty/chromium/media/filters/ffmpeg_video_decoder.h
+@@ -7,10 +7,12 @@
+
+ #include <memory>
+
++#include "base/containers/lru_cache.h"
+ #include "base/functional/callback.h"
+ #include "base/memory/raw_ptr.h"
+ #include "base/memory/scoped_refptr.h"
+ #include "base/sequence_checker.h"
++#include "base/types/id_type.h"
+ #include "media/base/supported_video_decoder_config.h"
+ #include "media/base/video_decoder.h"
+ #include "media/base/video_decoder_config.h"
+@@ -87,6 +89,20 @@ class MEDIA_EXPORT FFmpegVideoDecoder : public VideoDecoder {
+   // FFmpeg structures owned by this object.
+   std::unique_ptr<AVCodecContext, ScopedPtrAVFreeContext> codec_context_;
+
++  // The gist here is that timestamps need to be 64 bits to store microsecond
++  // precision. A 32 bit integer would overflow at ~35 minutes at this level of
++  // precision. We can't cast the timestamp to the void ptr object used by the
++  // opaque field in ffmpeg then, because it would lose data on a 32 bit build.
++  // However, we don't actually have 2^31 timestamped frames in a single
++  // playback, so it's fine to use the 32 bit value as a key in a map which
++  // contains the actual timestamps. Additionally, we've in the past set 128
++  // outstanding frames for re-ordering as a limit for cross-thread decoding
++  // tasks, so we'll do that here too with the LRU cache.
++  using TimestampId = base::IdType<int64_t, size_t, 0>;
++
++  TimestampId::Generator timestamp_id_generator_;
++  base::LRUCache<TimestampId, int64_t> timestamp_map_;
++
+   VideoDecoderConfig config_;
+
+   scoped_refptr<FrameBufferPool> frame_pool_;
