@@ -55,6 +55,7 @@ class Qt < Formula
   end
 
   bottle do
+    root_url "https://github.com/streetpea/homebrew-streetpea/releases/download/qt-6.7.3"
     sha256 cellar: :any,                 arm64_sonoma:  "1b9f0d9e57ba9a3d91cb3587dfbb503a23bf93e812f8e8549eebb06ad33e9798"
     sha256 cellar: :any,                 ventura:       "cdc3f40d8e37716a033006b47f8ca38b801255f5ea37ca6cd52f7362ac603574"
   end
