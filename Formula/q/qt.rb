@@ -55,11 +55,8 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "736b15e97ce01368cd314e96c7b46bad0d9b48e4258913511ab5f1b9ef16779b"
-    sha256 cellar: :any,                 arm64_ventura: "295299335e44701169635bb8672f588aa87d9265c539dcc4d7fe31ccd998e050"
-    sha256 cellar: :any,                 sonoma:        "7132f1d6dca9d0e78c6ba629fa798dea394be92d55ad98c3a1829a139904d21e"
-    sha256 cellar: :any,                 ventura:       "5a16728c19d459550d2f369498f431a164569a727475298a53fea542bfaddf77"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50dc2df98af451dc46de70ccd130bf8b3ce2edc9364173af87f3c03870f3e78f"
+    sha256 cellar: :any,                 arm64_sonoma:  "1b9f0d9e57ba9a3d91cb3587dfbb503a23bf93e812f8e8549eebb06ad33e9798"
+    sha256 cellar: :any,                 ventura:       "cdc3f40d8e37716a033006b47f8ca38b801255f5ea37ca6cd52f7362ac603574"
   end
 
   depends_on "cmake" => [:build, :test]
