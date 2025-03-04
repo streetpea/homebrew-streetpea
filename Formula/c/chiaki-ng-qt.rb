@@ -55,9 +55,9 @@ class ChiakiNgQt < Formula
   end
 
   bottle do
-    root_url "https://github.com/streetpea/homebrew-streetpea/releases/download/qt-6.7.3"
-    sha256 cellar: :any,                 arm64_sonoma:  "1b9f0d9e57ba9a3d91cb3587dfbb503a23bf93e812f8e8549eebb06ad33e9798"
-    sha256 cellar: :any,                 ventura:       "cdc3f40d8e37716a033006b47f8ca38b801255f5ea37ca6cd52f7362ac603574"
+    root_url "https://github.com/streetpea/homebrew-streetpea/releases/download/chiaki-ng-qt-6.7.3"
+    sha256 cellar: :any, arm64_sonoma: "b1bd2447cb41a83187b25e70021885a3ca01d447cfc2da78dc50e9b3026f9f13"
+    sha256 cellar: :any, ventura:      "f7de81294e5be32c13c1aff5e7229666ae44893905499fce2e548446784e4247"
   end
 
   depends_on "cmake" => [:build, :test]
