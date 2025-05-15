@@ -63,7 +63,7 @@ class ChiakiNgQt < Formula
   depends_on "cmake" => [:build, :test]
   depends_on maximum_macos: [:sonoma, :build] # https://bugreports.qt.io/browse/QTBUG-128900
   depends_on "ninja" => :build
-  depends_on "node" => :build
+  depends_on "node@22" => :build
   depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => [:build, :test]
