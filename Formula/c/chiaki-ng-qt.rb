@@ -3,17 +3,6 @@ class ChiakiNgQt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  license all_of: [
-    "BSD-3-Clause",
-    "GFDL-1.3-no-invariants-only",
-    "GPL-2.0-only",
-    { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
-    "LGPL-3.0-only",
-  ]
-  head "https://code.qt.io/qt/qt5.git", branch: "dev"
-
-  desc "Cross-platform application and UI framework"
-  homepage "https://www.qt.io/"
   url "https://download.qt.io/official_releases/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
   mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
   mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
@@ -35,11 +24,9 @@ class ChiakiNgQt < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:  "861acfe809369d19c8cbc923afa94c62f48784f087a150e09d3522e5eeb15f9e"
-    sha256 cellar: :any, arm64_ventura: "f30408e5e2a56aef97597398e4d552da3286b9fb45ba040e405291584009bea8"
-    sha256 cellar: :any, sonoma:        "1cb92af62ec86c41bd6901428356fc8908ab98706a1f4b1e7791f09fd6cad498"
-    sha256 cellar: :any, ventura:       "3f55e107498966094f5b47f6e729728c7cc97d503f9deed8c59d87ca9f69cfa4"
-    sha256               x86_64_linux:  "0f25abc1c0b90ec910b12b3d5c4db85e77e5f0888a2a8446f2d2dc5c973ede78"
+    root_url "https://github.com/streetpea/homebrew-streetpea/releases/download/chiaki-ng-qt-6.7.3"
+    sha256 cellar: :any, arm64_sonoma: "b1bd2447cb41a83187b25e70021885a3ca01d447cfc2da78dc50e9b3026f9f13"
+    sha256 cellar: :any, ventura:      "f7de81294e5be32c13c1aff5e7229666ae44893905499fce2e548446784e4247"
   end
 
   depends_on "cmake" => [:build, :test]
