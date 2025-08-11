@@ -1,9 +1,9 @@
 cask "chiaki-ng" do
   arch arm: "arm64", intel: "amd64"
 
-  version "1.9.7,0"
-  sha256 arm:   "d26b06f11489e1680183c2aa88ffa0384db894eb71b1c93d14aac764ecdfdc95",
-         intel: "42398334f99d3346f93e4dffa065af660e17a5a554e78e63f7a2bf7fd13ab6a5"
+  version "1.9.9,0"
+  sha256 arm:   "ee95bf6dd51842579028b6c4e90702d98d312d54852256280525988cfc2fe434",
+         intel: "5d401799ccb1176bc8014a3f73b64a66b0b4a32e6d408d03b8c7e0a41b455966"
 
   url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version.csv.first}/chiaki-ng-macos_#{arch}-Release.dmg",
       verified: "github.com/streetpea/chiaki-ng/"
