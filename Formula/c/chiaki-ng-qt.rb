@@ -3,9 +3,8 @@ class ChiakiNgQt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+  url "https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+  mirror "https://github.com/streetpea/homebrew-streetpea/releases/download/qt-6.7.3/qt-everywhere-src-6.7.3.tar.xz"
   sha256 "a3f1d257cbb14c6536585ffccf7c203ce7017418e1a0c2ed7c316c20c729c801"
   license all_of: [
     "BSD-3-Clause",
@@ -39,7 +38,7 @@ class ChiakiNgQt < Formula
   depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
 
-  depends_on "assimp"
+  depends_on "assimp@5"
   depends_on "brotli"
   depends_on "dbus"
   depends_on "double-conversion"
@@ -47,7 +46,7 @@ class ChiakiNgQt < Formula
   depends_on "glib"
   depends_on "harfbuzz"
   depends_on "hunspell"
-  depends_on "icu4c@77"
+  depends_on "icu4c@76"
   depends_on "jasper"
   depends_on "jpeg-turbo"
   depends_on "libb2"
