@@ -46,7 +46,7 @@ class ChiakiNgQt < Formula
   depends_on "glib"
   depends_on "harfbuzz"
   depends_on "hunspell"
-  depends_on "icu4c@77"
+  depends_on "icu4c@76"
   depends_on "jasper"
   depends_on "jpeg-turbo"
   depends_on "libb2"
