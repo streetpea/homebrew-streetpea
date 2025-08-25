@@ -38,7 +38,7 @@ class ChiakiNgQt < Formula
   depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
 
-  depends_on "assimp"
+  depends_on "assimp@5"
   depends_on "brotli"
   depends_on "dbus"
   depends_on "double-conversion"
