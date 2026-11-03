@@ -21,7 +21,7 @@ brew "<formula>"
 brew install --cask streetpea/streetpea/chiaki-ng
 ```
 
-chiaki-ng is signed and notarized, so it opens without a security exception. It needs a Mac with Apple silicon and macOS 13 or later.
+chiaki-ng is signed and notarized, so it opens without a security exception. It needs a Mac with Apple silicon and macOS 15 (Sequoia) or later.
 
 ## Documentation
 
