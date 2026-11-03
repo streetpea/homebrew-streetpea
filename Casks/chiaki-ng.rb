@@ -1,27 +1,27 @@
 cask "chiaki-ng" do
-  arch arm: "arm64", intel: "amd64"
+  version "1.10.1"
+  sha256 "cf34b0bd808177beadf42563bdca166818193f847fa6b8956bcdaafae31f7e06"
 
-  version "1.9.9,2"
-  sha256 arm:   "d66cea3ed213aff959687cec6a495575cf4d67b36df90c58d0ad9ab961c90dad",
-         intel: "8310389bcceaed761f465ed39739429222a8b66510fa84e2956fb9b876a90c73"
-
-  url "https://github.com/streetpea/chiaki-ng/releases/download/v#{version.csv.first}/chiaki-ng-macos_#{arch}-Release-fixed.dmg"
+  url "https://github.com/chiaki-ng/chiaki-ng/releases/download/v#{version}/chiaki-ng-macos_arm64-Release.dmg"
   name "chiaki-ng"
-  desc "PlayStation remote play client next-generation"
-  homepage "https://streetpea.github.io/chiaki-ng/"
+  desc "PlayStation remote play client"
+  homepage "https://chiaki-ng.github.io/chiaki-ng/"
 
   livecheck do
-    url "https://github.com/streetpea/chiaki-ng/releases"
+    url :url
+    strategy :github_latest
   end
+
+  depends_on arch: :arm64
+  depends_on macos: :ventura
 
   app "chiaki-ng.app"
 
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-d", "com.apple.quarantine", "{{appdir}}/chiaki-ng.app"], must_succeed: false
-  end
-
   zap trash: [
     "~/Library/Application Support/Chiaki",
-    "~/Library/Preferences/com.chiaki.Chiaki.plist",
+    "~/Library/Caches/Chiaki",
+    "~/Library/Preferences/com.chiaki.Chiaki*.plist",
+    "~/Library/Preferences/com.chiaki.pl_render_params.plist",
+    "~/Library/Saved Application State/org.streetpea.chiaking.savedState",
   ]
 end
